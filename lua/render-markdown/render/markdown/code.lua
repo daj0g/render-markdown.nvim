@@ -206,8 +206,10 @@ function Render:background_enabled(language)
     local disable = self.config.disable_background
     if type(disable) == 'boolean' then
         return not disable
+    elseif language == nil then
+        return not vim.tbl_contains(disable, '')
     else
-        return language == nil or not vim.tbl_contains(disable, language.text)
+        return not vim.tbl_contains(disable, language.text)
     end
 end
 
