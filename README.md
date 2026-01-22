@@ -489,6 +489,9 @@ require('render-markdown').setup({
         -- | thin  | when lines are empty overlay the above & below icons |
         -- | hide  | conceal lines unless language name or icon is added  |
         border = 'hide',
+        -- A list of language names for which borders disabled.
+        -- Use a boolean to make behavior apply to all languages.
+        disable_border = { 'asciiart' },
         -- Used above code blocks to fill remaining space around language.
         language_border = '█',
         -- Added to the left of language.

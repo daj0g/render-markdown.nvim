@@ -395,6 +395,7 @@ M.code = {}
 ---@field right_pad number
 ---@field min_width integer
 ---@field border render.md.code.Border
+---@field disable_border boolean|string[]
 ---@field language_border string
 ---@field language_left string
 ---@field language_right string
@@ -493,6 +494,9 @@ M.code.default = {
     -- | thin  | when lines are empty overlay the above & below icons |
     -- | hide  | conceal lines unless language name or icon is added  |
     border = 'hide',
+    -- A list of language names for which borders disabled.
+    -- Use a boolean to make behavior apply to all languages.
+    disable_border = { 'asciiart' },
     -- Used above code blocks to fill remaining space around language.
     language_border = '█',
     -- Added to the left of language.
@@ -553,6 +557,9 @@ function M.code.schema()
         right_pad = { type = 'number' },
         min_width = { type = 'number' },
         border = { enum = M.code.border },
+        disable_border = {
+            union = { { list = { type = 'string' } }, { type = 'boolean' } },
+        },
         language_border = { type = 'string' },
         language_left = { type = 'string' },
         language_right = { type = 'string' },

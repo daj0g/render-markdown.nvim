@@ -106,6 +106,7 @@
 ---@field right_pad? number
 ---@field min_width? integer
 ---@field border? render.md.code.Border
+---@field disable_border? boolean|string[]
 ---@field language_border? string
 ---@field language_left? string
 ---@field language_right? string

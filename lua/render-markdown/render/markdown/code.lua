@@ -82,10 +82,13 @@ function Render:run()
     end
 
     local language = info and info:child('language')
-    if not self:language(info, language, above) then
-        self:border(above, self.config.above)
+    local border = self:border_enabled(language)
+    if border then
+        if not self:language(info, language, above) then
+            self:border(above, self.config.above)
+        end
+        self:border(below, self.config.below)
     end
-    self:border(below, self.config.below)
 
     local background = self:background_enabled(language)
     if background then
@@ -202,13 +205,28 @@ end
 ---@private
 ---@param language? render.md.Node
 ---@return boolean
-function Render:background_enabled(language)
-    local disable = self.config.disable_background
+function Render:decoration_enabled(key, language)
+    local disable = self.config[key]
     if type(disable) == 'boolean' then
         return not disable
     else
         return language == nil or not vim.tbl_contains(disable, language.text)
     end
+
+end
+
+---@private
+---@param language? render.md.Node
+---@return boolean
+function Render:border_enabled(language)
+    return self:decoration_enabled('disable_border', language)
+end
+
+---@private
+---@param language? render.md.Node
+---@return boolean
+function Render:background_enabled(language)
+    return self:decoration_enabled('disable_background', language)
 end
 
 ---@private
